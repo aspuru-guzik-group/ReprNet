@@ -27,7 +27,7 @@ class BibtexLib:
         self.bib_database = bib_database
         self.bib_file_path = bib_file_path
 
-    def get_entry(self, entry_key):
+    def get_entry(self, entry_key)-> Citation:
         entry_dict = self.bib_database.entries_dict.get(entry_key, None)
         if entry_dict is None:
             raise KeyError(f"Entry {entry_key} not found in the bibtex file at {self.bib_file_path}")
@@ -44,3 +44,8 @@ def load_bibtex(bibtex_file_path) -> Callable[[str], Citation]:
     # load the bibtex file
     bibtex_lib = BibtexManager.get_bibtex_lib(bibtex_file_path)
     return bibtex_lib.get_entry
+
+
+def bib(bibtex_string: str) -> Citation:
+    bib_database = bibtexparser.loads(bibtex_string)
+    return Citation(bib_database.entries[0])

@@ -15,14 +15,14 @@ class Entity:
 
 
 class Repr(Entity):
-    edges: List[Edge] = []
+    edges: List[Transform] = []
 
     @classmethod
-    def add_edge(cls, edge: Edge):
+    def add_edge(cls, edge: Transform):
         cls.edges.append(edge)
 
 
-class Edge(Entity):
+class Transform(Entity):
     in_nodes: List[Repr] = []
     out_nodes: List[Repr] = []
     composer: Repr = None
