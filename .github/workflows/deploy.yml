@@ -1,0 +1,35 @@
+name: docs
+
+on:
+  # trigger deployment on every push to main branch
+  push:
+    branches:
+      - main
+    # trigger deployment on every push to docs folder
+    paths:
+      - docs/**
+      - chem_net/**
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # fetch all commits to get last updated time or other git log info
+          fetch-depth: 0
+
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.10
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build docs
+        run: |
+          python scripts/make_docs.py docs/index.html

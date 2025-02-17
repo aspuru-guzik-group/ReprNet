@@ -1,10 +1,8 @@
+import json
 import os
 import importlib.util
 import inspect
 from typing import List, Type
-
-from bokeh.palettes import Blues8
-from bokeh.transform import linear_cmap
 
 from repr_net.base import Entity, Repr, Edge
 
@@ -39,16 +37,12 @@ def recursively_load_classes(directory: str, class_filter=None) -> List[Type]:
                 all_classes.extend(load_classes_from_file(file_path, class_filter=class_filter))
     return all_classes
 
-EdgeClassID = 1 / 2
-ReprClassID = 2 / 2
+EdgeClassID = 1
+ReprClassID = 2
 
-def extract_entities_from_directory() -> List[Type]:
-    # get the path of the file where the function is called
-    caller_path = inspect.stack()[1].filename
-    # get the directory of the caller file
-    caller_dir = os.path.dirname(caller_path)
+def generate_network_from_directory(dir) -> nx.Graph:
     # load the classes
-    classes = recursively_load_classes(caller_dir, class_filter=lambda x: issubclass(x, Entity))
+    classes = recursively_load_classes(dir, class_filter=lambda x: issubclass(x, Entity))
     edges = [cls for cls in classes if issubclass(cls, Edge)]
     reprs = [cls for cls in classes if issubclass(cls, Repr)]
     cls_to_node = {}
@@ -74,35 +68,17 @@ def extract_entities_from_directory() -> List[Type]:
 
         for out_node in edge_class.out_nodes:
             G.add_edge(edge_class.__name__, out_node.__name__)
+    return G
+
+def generate_network_here() -> nx.Graph:
+    # get the path of the file where the function is called
+    caller_path = inspect.stack()[1].filename
+    # get the directory of the caller file
+    caller_dir = os.path.dirname(caller_path)
+    return generate_network_from_directory(caller_dir)
 
 
-    display_network(G)
-
-def display_network(G):
-    #https://melaniewalsh.github.io/Intro-Cultural-Analytics/06-Network-Analysis/02-Making-Network-Viz-with-Bokeh.html
-    from bokeh.io import output_notebook, show, save
-    from bokeh.models import Range1d, Circle, ColumnDataSource, MultiLine
-    from bokeh.plotting import figure
-    from bokeh.plotting import from_networkx
-    HOVER_TOOLTIPS = [("Name", "@name"), ("Description", "@description")]
-    title = "Network of representation"
-    # Create a plot — set dimensions, toolbar, and title
-    plot = figure(tooltips = HOVER_TOOLTIPS,
-                  tools="pan,wheel_zoom,save,reset", active_scroll='wheel_zoom',
-                  x_range=Range1d(-10.1, 10.1), y_range=Range1d(-10.1, 10.1), title=title)
-
-    # Create a network graph object with spring layout
-    # https://networkx.github.io/documentation/networkx-1.9/reference/generated/networkx.drawing.layout.spring_layout.html
-    network_graph = from_networkx(G, nx.spring_layout, scale=10, center=(0, 0))
-    color_by_this_attribute = "class_id"
-    color_palette = Blues8
-    # Set node size and color
-    network_graph.node_renderer.glyph = Circle(radius="class_id", fill_color=linear_cmap(color_by_this_attribute,color_palette, 0, 5))
-
-    # Set edge opacity and width
-    network_graph.edge_renderer.glyph = MultiLine(line_alpha=0.5, line_width=1)
-
-    # Add network graph to the plot
-    plot.renderers.append(network_graph)
-
-    show(plot)
+def generate_network_from_module(module) -> nx.Graph:
+    module_path = inspect.getfile(module)
+    module_dir = os.path.dirname(module_path)
+    return generate_network_from_directory(module_dir)
