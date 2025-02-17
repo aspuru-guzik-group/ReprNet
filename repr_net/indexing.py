@@ -22,6 +22,7 @@ def load_classes_from_file(file_path: str, class_filter=None) -> List[Type]:
         for name, obj in inspect.getmembers(module, inspect.isclass):
             if obj.__module__ == module_name:  # Ensure class is defined in this file
                 if class_filter(obj):
+                    obj._file_path = file_path
                     classes.append(obj)
 
     return classes
@@ -36,6 +37,23 @@ def recursively_load_classes(directory: str, class_filter=None) -> List[Type]:
                 file_path = os.path.join(root, file)
                 all_classes.extend(load_classes_from_file(file_path, class_filter=class_filter))
     return all_classes
+
+
+def make_name_from_class_name(class_name: str) -> str:
+    """
+    :param class_name: names like LM_Embedding or EmbeddingVector
+    :return: LM Embedding or Embedding Vector
+    """
+    name = []
+    for i, c in enumerate(class_name):
+        if c == "_":
+            name.append(" ")
+            continue
+        if c.islower() and i<len(class_name)-1 and class_name[i+1].isupper():
+            name.append(c + " ")
+            continue
+        name.append(c)
+    return "".join(name)
 
 TransformNodeClassID = 1
 ReprNodeClassID = 2
@@ -52,13 +70,14 @@ def generate_network_from_directory(dir) -> nx.Graph:
     transforms = [cls for cls in classes if issubclass(cls, Transform)]
     reprs = [cls for cls in classes if issubclass(cls, Repr)]
     realizations = []
+
     for repr_class in reprs:
         parent_classes = repr_class.__bases__
-        assert len(parent_classes) == 1
-        parent_class = parent_classes[0]
-        if parent_class is Repr:
-            continue
-        realizations.append((parent_class, repr_class))
+        for parent_class in parent_classes:
+            if parent_class is Repr:
+                continue
+            assert issubclass(parent_class, Repr)
+            realizations.append((parent_class, repr_class))
 
     for transform_class in transforms:
         parent_classes = transform_class.__bases__
@@ -68,26 +87,23 @@ def generate_network_from_directory(dir) -> nx.Graph:
             continue
         realizations.append((parent_class, transform_class))
 
-
-    cls_to_node = {}
+    cls_to_node_id = {}
     def check_and_add(cls):
-        if cls in cls_to_node:
+        if cls in cls_to_node_id:
             return
-
         information = {
             "description": cls.description,
-            "authors": cls.authors,
+            "contributors": cls.contributors,
             "references": [c.simple_dict() for c in cls.citations]
         }
         class_id = ReprNodeClassID if issubclass(cls, Repr) else TransformNodeClassID
-        G.add_node(cls.__name__, name=cls.__name__, information=information, class_id=class_id)
-        cls_to_node[cls] = cls.__name__
+        if cls._file_path is None:
+            cls._file_path = inspect.getfile(cls)
+        cls._id = str(hash(cls._file_path + cls.__name__))
+        G.add_node(cls._id, name=make_name_from_class_name(cls.__name__), information=information, class_id=class_id)
+        cls_to_node_id[cls] = cls._id
 
     G = nx.MultiDiGraph()
-    # add the classes to the graph
-    #for repr_class in reprs:
-    #    G.add_node(repr_class.__name__, name=repr_class.__name__, description=repr_class.description)
-    #    cls_to_node[repr_class] = repr_class.__name__
     for transform_class in transforms:
         for out_node in transform_class.out_nodes:
             check_and_add(out_node)
@@ -96,17 +112,17 @@ def generate_network_from_directory(dir) -> nx.Graph:
         #G.add_node(transform_class.__name__, name=transform_class.__name__, description=transform_class.description, class_id=TransformNodeClassID)
         for in_node in transform_class.in_nodes:
             check_and_add(in_node)
-            G.add_edge(in_node.__name__,  transform_class.__name__,  class_id=InputEdgeClassID)
-        G.add_edge(transform_class.composer.__name__, transform_class.__name__,  class_id=ComposerEdgeClassID)
+            G.add_edge(in_node._id, transform_class._id, class_id=InputEdgeClassID)
+        G.add_edge(transform_class.composer._id, transform_class._id, class_id=ComposerEdgeClassID)
 
         for out_node in transform_class.out_nodes:
-            G.add_edge(transform_class.__name__, out_node.__name__, class_id=OutputEdgeClassID)
+            G.add_edge(transform_class._id, out_node._id, class_id=OutputEdgeClassID)
 
 
     for parent_class, repr_class in realizations:
         check_and_add(parent_class)
         check_and_add(repr_class)
-        G.add_edge(parent_class.__name__, repr_class.__name__, class_id=RealizationEdgeClassID)
+        G.add_edge(parent_class._id, repr_class._id, class_id=RealizationEdgeClassID)
 
     return G
 

@@ -20,7 +20,7 @@ class Optimizer(Repr):
 class Training(Transform):
     in_nodes = [TrainingData]
     out_nodes = [NeuralNetwork]
-    authors = ["Zijian Zhang"]
+    contributors = ["Zijian Zhang"]
     description = "Training a neural network using training data"
     composer = Optimizer
 
@@ -41,24 +41,3 @@ class GraphNeuralNetwork(NeuralNetwork):
 """)]
 
 
-class InternetCorpus(TrainingData):
-    description = "Corpus retrieved from the internet"
-
-class LanguageModel(NeuralNetwork):
-    description = "Language Model"
-    citations = [
-        bib("""
-@misc{devlin2018bert,
-    title={BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding},
-    author={Jacob Devlin and Ming-Wei Chang and Kenton Lee and Kristina Toutanova},
-    year={2018},
-    eprint={1810.04805},
-    archivePrefix={arXiv},
-    primaryClass={cs.CL}
-}
-"""),
-    ]
-
-class LLM_Pretraining(Training):
-    in_nodes = [InternetCorpus]
-    out_nodes = [LanguageModel]

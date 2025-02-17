@@ -18,9 +18,11 @@ class Citation:
         return d
 
 class Entity:
+    _id: int = None
+    _file_path: str = None
     citations: List[Citation] = []
     description: str = ""
-    authors: List[str] = []
+    contributors: List[str] = []
 
 
 class Repr(Entity):
