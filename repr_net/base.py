@@ -11,8 +11,8 @@ class Citation:
         d = {
             "title": self.entry_dict["title"],
         }
-        if "authors" in self.entry_dict:
-            d["authors"] = self.entry_dict["authors"]
+        if "author" in self.entry_dict:
+            d["author"] = self.entry_dict["author"]
         if "year" in self.entry_dict:
             d["year"] = self.entry_dict["year"]
         return d

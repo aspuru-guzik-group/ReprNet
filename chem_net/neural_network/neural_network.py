@@ -46,6 +46,18 @@ class InternetCorpus(TrainingData):
 
 class LanguageModel(NeuralNetwork):
     description = "Language Model"
+    citations = [
+        bib("""
+@misc{devlin2018bert,
+    title={BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding},
+    author={Jacob Devlin and Ming-Wei Chang and Kenton Lee and Kristina Toutanova},
+    year={2018},
+    eprint={1810.04805},
+    archivePrefix={arXiv},
+    primaryClass={cs.CL}
+}
+"""),
+    ]
 
 class LLM_Pretraining(Training):
     in_nodes = [InternetCorpus]
