@@ -34,3 +34,10 @@ jobs:
       - name: Build docs
         run: |
           python scripts/make_docs.py docs/index.html
+
+      - name: Deploy to GitHub page
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          force_orphan: true
