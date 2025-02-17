@@ -32,7 +32,7 @@ def get_node_color(node):
 def get_edge_color(edge):
     return edge_class_id_to_color.get(edge["class_id"], default_color)
 
-def display_network(G, output_path="index.html", show_browser=True, title="Representation network"):
+def display_network(G, output_path="index.html", show_browser=True, title="Representation network", description=""):
     global template_str
     if template_str is None:
         with open(template_path, "r") as f:
@@ -76,7 +76,7 @@ def display_network(G, output_path="index.html", show_browser=True, title="Repre
     data = {"nodes": nodes, "edges": edges}
     data_json = json.dumps(data)
     data_declaration = f"var data = {data_json};"
-    html = Template(template_str).substitute(data=data_declaration, title=title)
+    html = Template(template_str).substitute(data=data_declaration, title=title, description=description)
     with open(output_path, "w") as f:
         f.write(html)
     full_output_path = 'file:///' + os.path.abspath(output_path)
