@@ -51,7 +51,7 @@ def display_network(G, output_path="index.html", show_browser=True, title="Repre
     for node_id, node in G.nodes(data=True):
         nodes.append({"id": node_id, "label": node["name"],
                       "color": get_node_color(node),
-                      "shape": "diamond" if node["class_id"] == TransformNodeClassID else "box"
+                      "shape": "diamond" if node["class_id"] == TransformNodeClassID else "box", "information": node["information"]
                       })
     """
     Format

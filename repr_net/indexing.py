@@ -73,8 +73,14 @@ def generate_network_from_directory(dir) -> nx.Graph:
     def check_and_add(cls):
         if cls in cls_to_node:
             return
+
+        information = {
+            "description": cls.description,
+            "authors": cls.authors,
+            "references": [c.simple_dict() for c in cls.citations]
+        }
         class_id = ReprNodeClassID if issubclass(cls, Repr) else TransformNodeClassID
-        G.add_node(cls.__name__, name=cls.__name__, description=cls.description, class_id=class_id)
+        G.add_node(cls.__name__, name=cls.__name__, information=information, class_id=class_id)
         cls_to_node[cls] = cls.__name__
 
     G = nx.MultiDiGraph()

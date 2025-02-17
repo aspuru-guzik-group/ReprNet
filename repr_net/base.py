@@ -7,6 +7,15 @@ class Citation:
     def __init__(self, entry_dict):
         self.entry_dict = entry_dict
 
+    def simple_dict(self):
+        d = {
+            "title": self.entry_dict["title"],
+        }
+        if "authors" in self.entry_dict:
+            d["authors"] = self.entry_dict["authors"]
+        if "year" in self.entry_dict:
+            d["year"] = self.entry_dict["year"]
+        return d
 
 class Entity:
     citations: List[Citation] = []

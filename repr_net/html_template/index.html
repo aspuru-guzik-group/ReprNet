@@ -3,7 +3,7 @@
 <HEAD>
   <meta charset="utf-8" />
   <TITLE>[vis.js] Network | Basic Usage | TEST: Load External JSON Datafile</TITLE>
-
+<script src="https://cdn.jsdelivr.net/npm/@textea/json-viewer@3"></script>
   <!-- NPM (http://visjs.org/index.html#download_install): -->
   <!-- <script type="text/javascript" src="node_modules/vis/dist/vis.min.js"></script> -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
@@ -28,9 +28,10 @@
 <BODY>
 
 <h1>$title</h1>
-
+<div>
+<div id="information" style="position: absolute"></div>
 <div id="mynetwork"></div>
-
+</div>
 <!-- Add an invisible <div> element to the document, to hold the JSON data: -->
 <div id="networkJSON-results" class="results" style="display:none"></div>
 
@@ -44,11 +45,13 @@
   // http://visjs.org/docs/network/physics.html#
 
   var options = {
+    nodes:{
+    },
     edges: {
       arrows: {
-        to: {enabled: true, scaleFactor:0.75, type:'arrow'},
+        to: {enabled: true, scaleFactor:1, type:'arrow'},
         // to: {enabled: false, scaleFactor:0.5, type:'bar'},
-        middle: {enabled: false, scalefactor:1, type:'arrow'},
+        middle: {enabled: false, scaleFactor:1, type:'arrow'},
         from: {enabled: true, scaleFactor:0.3, type:'arrow'}
         // from: {enabled: false, scaleFactor:0.5, type:'arrow'}
       },
@@ -167,6 +170,15 @@ $data
 
 var container = document.getElementById('mynetwork');
 var network = new vis.Network(container, data, options);
+  network.on("selectNode", function (params) {
+    console.log('selectNode Event:', params);
+    let nodeId = params.nodes[0];
+    let nodeDict = data.nodes.find(x => x.id === nodeId);
+    let informationDict = nodeDict.information
+    new JsonViewer({
+        value: informationDict
+      }).render('#information');
+});
 </script>
 
 </BODY>
