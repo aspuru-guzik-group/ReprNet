@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["repr_net*"]
+
+[project]
+name = "repr_net"
+description = "Build and visualize representation networks with Python"
+version = "0.0.1"
+requires-python = ">=3.8"
+authors = [
+    { name = "Zijian Zhang" }
+]
+dynamic = ["dependencies"]
+readme = "README.md"
+
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+
+[project.urls]
+Homepage = "https://github.com/aspuru-guzik-group/ReprNet"
+Issues = "https://github.com/aspuru-guzik-group/ReprNet/issues"

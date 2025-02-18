@@ -107,8 +107,15 @@ class Inference(Transform):
 import module_contains_the_your_network # your network!
 from repr_net.indexing import generate_network_from_module
 from repr_net.visualization import display_network
+# This extracts all the classes defined in the directory of the module
 G = generate_network_from_module(module_contains_the_your_network)
 display_network(G)
 ```
 
 See example network visualization [here](http://repr.evoevo.org/)!
+
+## Installation
+
+```bash
+pip install repr_net
+```
