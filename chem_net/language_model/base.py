@@ -1,10 +1,29 @@
-from chem_net.neural_network.base import TrainingData, NeuralNetwork, Training
+from chem_net.general import Text, Image
+from chem_net.meta import HumanKnowledge, Human
+from chem_net.neural_network.base import NeuralNetwork, Training
 from repr_net.base import Transform, Repr
 from repr_net.bibtex import bib
 
 
 class Token(Repr):
     pass
+
+
+class ReadingToken(Transform):
+    in_nodes = [Token]
+    out_nodes = [HumanKnowledge]
+    composer = Human
+
+
+
+class Tokenizer(Repr):
+    pass
+
+class Tokenize(Transform):
+    in_nodes = [Text]
+    out_nodes = [Token]
+    composer = Tokenizer
+
 
 
 class LanguageModel(NeuralNetwork):
@@ -36,6 +55,13 @@ class LM_inference(Transform):
 
 class MultimodalToken(Token):
     pass
+
+
+class MultimodalTokenize(Transform):
+    in_nodes = [Image]
+    out_nodes = [MultimodalToken]
+    composer = Tokenizer
+
 
 class Multimodal_LanguageModel(LanguageModel):
     description = "Multimodal Language Model"

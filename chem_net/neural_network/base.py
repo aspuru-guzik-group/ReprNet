@@ -15,6 +15,10 @@ class NeuralNetwork(Repr):
 
 class Optimizer(Repr):
     description = "Optimizers for training neural networks"
+    citations = [lib("kingma2014adam")]
+
+class TrainingAlgorithm(Repr):
+    description = "Training algorithms for neural networks"
 
 
 class Training(Transform):
@@ -22,7 +26,7 @@ class Training(Transform):
     out_nodes = [NeuralNetwork]
     contributors = ["Zijian Zhang"]
     description = "Training a neural network using training data"
-    composer = Optimizer
+    composer = TrainingAlgorithm
 
 
 class GraphNeuralNetwork(NeuralNetwork):
