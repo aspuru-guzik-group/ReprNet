@@ -1,0 +1,335 @@
+{
+  "nodes": [
+    {
+      "id": "-6241980523698219901",
+      "label": "Algorithm",
+      "color": "#F72585",
+      "shape": "box",
+      "information": {}
+    },
+    {
+      "id": "-4931451287057199373",
+      "label": "Data Structure",
+      "color": "#F72585",
+      "shape": "box",
+      "information": {}
+    },
+    {
+      "id": "-7872179870653216541",
+      "label": "Time Complexity",
+      "color": "#F72585",
+      "shape": "box",
+      "information": {}
+    },
+    {
+      "id": "-3930958450418337403",
+      "label": "Space Complexity",
+      "color": "#F72585",
+      "shape": "box",
+      "information": {}
+    },
+    {
+      "id": "-5987412054161959607",
+      "label": "Programming Paradigm",
+      "color": "#F72585",
+      "shape": "box",
+      "information": {}
+    },
+    {
+      "id": "-2498414230169757212",
+      "label": "Object-Oriented Programming",
+      "color": "#F72585",
+      "shape": "box",
+      "information": {}
+    },
+    {
+      "id": "-1536654390018728086",
+      "label": "Functional Programming",
+      "color": "#F72585",
+      "shape": "box",
+      "information": {}
+    },
+    {
+      "id": "-8704512342645545432",
+      "label": "Programming Language",
+      "color": "#F72585",
+      "shape": "box",
+      "information": {}
+    },
+    {
+      "id": "-2264181876539762046",
+      "label": "Compiler",
+      "color": "#F72585",
+      "shape": "box",
+      "information": {}
+    },
+    {
+      "id": "-4136521079421464510",
+      "label": "Operating System",
+      "color": "#F72585",
+      "shape": "box",
+      "information": {}
+    },
+    {
+      "id": "-8112361170793162543",
+      "label": "Database",
+      "color": "#F72585",
+      "shape": "box",
+      "information": {}
+    },
+    {
+      "id": "-3674346649908755118",
+      "label": "SQL",
+      "color": "#F72585",
+      "shape": "box",
+      "information": {}
+    },
+    {
+      "id": "-8088119703213906388",
+      "label": "NoSQL",
+      "color": "#F72585",
+      "shape": "box",
+      "information": {}
+    },
+    {
+      "id": "-1702119874528901673",
+      "label": "Computer Networks",
+      "color": "#F72585",
+      "shape": "box",
+      "information": {}
+    },
+    {
+      "id": "-5165163545790161350",
+      "label": "Machine Learning",
+      "color": "#F72585",
+      "shape": "box",
+      "information": {}
+    },
+    {
+      "id": "-3325601720431089619",
+      "label": "Deep Learning",
+      "color": "#F72585",
+      "shape": "box",
+      "information": {}
+    },
+    {
+      "id": "-2803804576319040455",
+      "label": "used to build",
+      "color": "#4CC9F0",
+      "shape": "diamond",
+      "information": {}
+    },
+    {
+      "id": "-1353319131201053682",
+      "label": "foundation for",
+      "color": "#4CC9F0",
+      "shape": "diamond",
+      "information": {}
+    },
+    {
+      "id": "-5420066126321711974",
+      "label": "requires knowledge of",
+      "color": "#4CC9F0",
+      "shape": "diamond",
+      "information": {}
+    },
+    {
+      "id": "-770910064933372895",
+      "label": "benefits from",
+      "color": "#4CC9F0",
+      "shape": "diamond",
+      "information": {}
+    },
+    {
+      "id": "-2380646595096004909",
+      "label": "closely related to",
+      "color": "#4CC9F0",
+      "shape": "diamond",
+      "information": {}
+    },
+    {
+      "id": "-3204715007466013103",
+      "label": "manages",
+      "color": "#4CC9F0",
+      "shape": "diamond",
+      "information": {}
+    }
+  ],
+  "edges": [
+    {
+      "from": "-6241980523698219901",
+      "to": "-2380646595096004909",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+    {
+      "from": "-2380646595096004909",
+      "to": "-4931451287057199373",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+
+    {
+      "from": "-4931451287057199373",
+      "to": "-1353319131201053682",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+    {
+      "from": "-1353319131201053682",
+      "to": "-7872179870653216541",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+    {
+      "from": "-7872179870653216541",
+      "to": "-5420066126321711974",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+    {
+      "from": "-5420066126321711974",
+      "to": "-3930958450418337403",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+
+    {
+      "from": "-5987412054161959607",
+      "to": "-770910064933372895",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+    {
+      "from": "-770910064933372895",
+      "to": "-2498414230169757212",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+    {
+      "from": "-5987412054161959607",
+      "to": "-770910064933372895",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+    {
+      "from": "-770910064933372895",
+      "to": "-1536654390018728086",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+
+    {
+      "from": "-8704512342645545432",
+      "to": "-2803804576319040455",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+    {
+      "from": "-2803804576319040455",
+      "to": "-2264181876539762046",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+    {
+      "from": "-2264181876539762046",
+      "to": "-1353319131201053682",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+
+    {
+      "from": "-4136521079421464510",
+      "to": "-3204715007466013103",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+    {
+      "from": "-3204715007466013103",
+      "to": "-8112361170793162543",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+
+    {
+      "from": "-8112361170793162543",
+      "to": "-1353319131201053682",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+    {
+      "from": "-8112361170793162543",
+      "to": "-4931451287057199373",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+    {
+      "from": "-8112361170793162543",
+      "to": "-3674346649908755118",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+    {
+      "from": "-8112361170793162543",
+      "to": "-8088119703213906388",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+
+    {
+      "from": "-1702119874528901673",
+      "to": "-5420066126321711974",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+
+    {
+      "from": "-5165163545790161350",
+      "to": "-770910064933372895",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+    {
+      "from": "-5165163545790161350",
+      "to": "-5420066126321711974",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+    {
+      "from": "-3325601720431089619",
+      "to": "-770910064933372895",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    },
+    {
+      "from": "-3325601720431089619",
+      "to": "-5165163545790161350",
+      "color": { "color": "#5E60CE" },
+      "arrows": "to",
+      "dashes": true
+    }
+  ]
+}
